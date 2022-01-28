@@ -17,9 +17,16 @@ public class Transactions implements IAccountBalanceChangeListener {
     }
 
     public Transactions deposits() {
+        return forType(TransactionType.Deposit);
+    }
+    public Transactions withdraws() {
+        return forType(TransactionType.Withdraw);
+    }
+
+    private Transactions forType(TransactionType type) {
         Transactions deposits = new Transactions();
         transactions.stream()
-                .filter(t -> t.type.equals("Deposit"))
+                .filter(t -> t.type == type)
                 .forEach(t -> deposits.transactions.add(t));
         return deposits;
     }
@@ -37,15 +44,19 @@ public class Transactions implements IAccountBalanceChangeListener {
         return transactions.stream().map(t -> t.toString()).collect(Collectors.joining("\n"));
     }
 
+    public enum TransactionType {
+        Deposit, Withdraw
+    }
+
     public final static class Transaction {
         private final long time;
-        private final String type;
+        private final TransactionType type;
         private final int amount;
         private final int balance;
 
         private Transaction(long time, int change, int balance) {
             this.time = time;
-            this.type = change > 0 ? "Deposit" : "Withdraw";
+            this.type = change > 0 ? TransactionType.Deposit : TransactionType.Withdraw;
             this.amount = Math.abs(change);
             this.balance = balance;
         }
@@ -54,6 +65,5 @@ public class Transactions implements IAccountBalanceChangeListener {
         public String toString() {
             return time + " : " + type + " : " + amount + " : " + balance;
         }
-
     }
 }
