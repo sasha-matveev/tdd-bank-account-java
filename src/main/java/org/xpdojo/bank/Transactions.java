@@ -16,6 +16,22 @@ public class Transactions implements IAccountBalanceChangeListener {
         return transactions.get(transactions.size() - 1);
     }
 
+    public Transactions deposits() {
+        Transactions deposits = new Transactions();
+        transactions.stream()
+                .filter(t -> t.type.equals("Deposit"))
+                .forEach(t -> deposits.transactions.add(t));
+        return deposits;
+    }
+
+    public Transactions fromTime(long startTime) {
+        Transactions deposits = new Transactions();
+        transactions.stream()
+                .filter(t -> t.time > startTime)
+                .forEach(t -> deposits.transactions.add(t));
+        return deposits;
+    }
+
     @Override
     public String toString() {
         return transactions.stream().map(t -> t.toString()).collect(Collectors.joining("\n"));
