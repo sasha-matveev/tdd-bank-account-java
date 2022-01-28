@@ -58,6 +58,7 @@ public class AccountTest {
         a1.deposit(10);
         a1.transferTo(a2, 5);
 
-
+        Mockito.verify(l1).onBalanceChanged(Mockito.anyLong(), Mockito.eq(-5), Mockito.eq(5));
+        Mockito.verify(l2).onBalanceChanged(Mockito.anyLong(), Mockito.eq(5), Mockito.eq(5));
     }
 }
