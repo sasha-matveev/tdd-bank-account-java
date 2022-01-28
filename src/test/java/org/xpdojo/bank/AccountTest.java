@@ -9,12 +9,24 @@ public class AccountTest {
 
     @Test
     void shouldNotAllowToDepositNegativeAmount() {
-
+        Account account = new Account(Mockito.mock(IAccountBalanceChangeListener.class));
+        try {
+            account.deposit(-10);
+            fail("exception expected");
+        } catch (Exception e) {
+            // expected
+        }
     }
 
     @Test
     void shouldNotAllowToWithdrawNegativeAmount() {
-
+        Account account = new Account(Mockito.mock(IAccountBalanceChangeListener.class));
+        try {
+            account.withdraw(-10);
+            fail("exception expected");
+        } catch (Exception e) {
+            // expected
+        }
     }
 
     @Test

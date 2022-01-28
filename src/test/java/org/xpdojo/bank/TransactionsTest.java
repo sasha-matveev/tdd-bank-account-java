@@ -10,7 +10,7 @@ class TransactionsTest {
     void shouldPrintLatestTransaction() {
         Transactions t = new Transactions();
         t.onBalanceChanged(100L, 10, 20);
-        assertThat(t.lastTransaction().print()).isEqualTo("100 : Deposit : 10 : 20");
+        assertThat(t.lastTransaction()).hasToString("100 : Deposit : 10 : 20");
     }
 
     @Test
@@ -18,6 +18,6 @@ class TransactionsTest {
         Transactions t = new Transactions();
         t.onBalanceChanged(100L, 10, 20);
         t.onBalanceChanged(200L, -30, 40);
-        assertThat(t.print()).isEqualTo("100 : Deposit : 10 : 20\n200 : Withdraw : 30 : 40");
+        assertThat(t).hasToString(("100 : Deposit : 10 : 20\n200 : Withdraw : 30 : 40"));
     }
 }

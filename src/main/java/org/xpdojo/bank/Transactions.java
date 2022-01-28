@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Transactions implements IAccountBalanceChangeListener, IPrintable {
+public class Transactions implements IAccountBalanceChangeListener {
     private final List<Transaction> transactions = new ArrayList<>();
 
     @Override
@@ -17,11 +17,11 @@ public class Transactions implements IAccountBalanceChangeListener, IPrintable {
     }
 
     @Override
-    public String print() {
+    public String toString() {
         return transactions.stream().map(t -> t.toString()).collect(Collectors.joining("\n"));
     }
 
-    public final static class Transaction implements IPrintable {
+    public final static class Transaction {
         private final long time;
         private final String type;
         private final int amount;
@@ -39,9 +39,5 @@ public class Transactions implements IAccountBalanceChangeListener, IPrintable {
             return time + " : " + type + " : " + amount + " : " + balance;
         }
 
-        @Override
-        public String print() {
-            return toString();
-        }
     }
 }

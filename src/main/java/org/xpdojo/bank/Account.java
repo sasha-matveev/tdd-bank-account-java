@@ -11,11 +11,17 @@ public class Account {
     }
 
     public void deposit(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException();
+        }
         this.balance += amount;
         listener.onBalanceChanged(System.currentTimeMillis(), amount, balance);
     }
 
     public void withdraw(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException();
+        }
         if (this.balance < amount) {
             throw new IllegalArgumentException("Not enough on account to withdraw");
         }
